@@ -1,0 +1,43 @@
+/// <reference types="bytebuffer" />
+import { HeadlessAmplet } from "./HeadlessAmplet";
+import ByteBuffer = require("bytebuffer");
+import BigNumber from "bignumber.js";
+import { GrowModeEnum } from "./Backings/GrowModeEnum";
+import { IAmpAmpletSerializable, IAmpByteSerializable } from "./Serialization";
+export declare class HeadlessPrefixedAmplet implements IAmpByteSerializable {
+    private _hamplet;
+    private _validHeadlessPrefixedAmplet;
+    private constructor();
+    static createFromHeadlessPrefixedAmplet(): HeadlessPrefixedAmplet;
+    static createFromBytes(bytes: ByteBuffer): HeadlessPrefixedAmplet;
+    addBytes(bytes: ByteBuffer): boolean;
+    addElementByte(value: number): boolean;
+    addElementBoolean(value: boolean): boolean;
+    addElementShort(value: number): boolean;
+    addElementChar(value: string): boolean;
+    addElementInt(value: number): boolean;
+    addElementLong(value: BigNumber): boolean;
+    addElementString(value: string): boolean;
+    addElementBigNumber(value: BigNumber): boolean;
+    addElementIAmpByteSerializable(value: IAmpByteSerializable): boolean;
+    addElementIAmpAmpletSerializable(value: IAmpAmpletSerializable): boolean;
+    resetCursor(): void;
+    setCursor(index: number): void;
+    getCursor(): number;
+    getMaxCursorPosition(): number;
+    getCurrentSize(): number;
+    ensureCapacity(minCap: number): void;
+    setGrowMode(growMode: GrowModeEnum): void;
+    getGrowMode(): GrowModeEnum;
+    trimToSize(): void;
+    hasNextElement(): boolean;
+    getNextElement(): ByteBuffer;
+    peekNextElement(): ByteBuffer;
+    skipNextElement(): boolean;
+    deleteNextElement(): boolean;
+    getNextElementAsHeadlessAmplet(): HeadlessAmplet;
+    peekNextElementAsHeadlessAmplet(): HeadlessAmplet;
+    getByteFootprint(): number;
+    readonly validHeadlessPrefixedAmplet: boolean;
+    serializeToBytes(): ByteBuffer;
+}

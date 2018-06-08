@@ -1,0 +1,48 @@
+/// <reference types="bytebuffer" />
+import { UnpackedGroup } from "./Groups/UnpackedGroup";
+import ByteBuffer = require("bytebuffer");
+import { IAmpClass } from "./Classifications/IAmpClass";
+import { PackedGroup } from "./Groups/PackedGroup";
+import { GroupID } from "./Groups/GroupID";
+import { IAmpByteSerializable } from "./Serialization";
+import { IAmpClassCollection } from "./Classifications/IAmpClassCollection";
+export declare class Amplet implements IAmpByteSerializable {
+    private _bytes;
+    private _groupHeaders;
+    private _initialGroupsCount;
+    private _ampHeaderAndGroupSize;
+    private _unpackedGroupsArray;
+    private _unpackedGroupsList;
+    private _addedUnpackedGroupsList;
+    private _trailer;
+    private _validAmplet;
+    constructor(unpackedGroups?: Array<UnpackedGroup>, bytes?: ByteBuffer);
+    static createFromIAmpClassCollection(_ampClassCollection: IAmpClassCollection): Amplet;
+    static createFromIAmpClass(_ampClass: IAmpClass): Amplet;
+    static createFromUnpacked(_unpackedGroup: UnpackedGroup): Amplet;
+    static createFromUnpackedArray(_unpackedGroup: Array<UnpackedGroup>): Amplet;
+    static createFromBytes(bytes: ByteBuffer): Amplet;
+    private sealGroups();
+    private areGroupsValid();
+    private doRepeatGroupIDsExist();
+    private doesGroupIDExistMoreThanOnce(header);
+    private calculateAmpHeaderAndGroupSize();
+    private areThereSufficientBytes();
+    readonly validAmplet: boolean;
+    private doesGroupIDExistFromElements(classID, classInstanceID);
+    doesGroupIDExist(groupID: GroupID): boolean;
+    private unpackGroupWithElements(classID, classInstanceID);
+    unpackGroup(groupID: GroupID): UnpackedGroup;
+    private getUnpackedGroupEithElements(classID, classInstanceID);
+    getUnpackedGroup(groupID: GroupID): UnpackedGroup | undefined;
+    addUnpackedGroup(group: UnpackedGroup): boolean;
+    addMultipleUnpackedGroups(groups: Array<UnpackedGroup>): boolean;
+    unpackClass(classID: number): Array<UnpackedGroup>;
+    private markGroupForDeletionInternal(classID, classInstanceID);
+    trailer: ByteBuffer;
+    markGroupForDeletion(groupID: GroupID): boolean;
+    markClassForDeletion(classID: number): boolean;
+    repackGroups(): Array<PackedGroup>;
+    repackSelf(): Amplet;
+    serializeToBytes(): ByteBuffer;
+}
