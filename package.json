@@ -2,7 +2,7 @@
   "name": "amp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.ts",
     "start": "nodemon --watch src/**/*.ts --ignore src/**/*.spec.ts --exec ts-node src/index.ts",
@@ -28,5 +28,6 @@
     "nodemon": "^1.17.5",
     "ts-node": "^6.1.0",
     "tslint": "^5.10.0"
-  }
+  },
+  "types": "dist/index.d.ts"
 }
