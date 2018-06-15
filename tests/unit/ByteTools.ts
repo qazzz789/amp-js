@@ -3,6 +3,7 @@ import 'mocha';
 import Long = require("long");
 import {ByteTools} from "../../src";
 import BigNumber from "bignumber.js";
+import ByteBuffer = require("bytebuffer");
 
 describe('ByteTools', () => {
     it('should construct short', () => {
@@ -26,5 +27,59 @@ describe('ByteTools', () => {
     it('should deconstruct Long format negative', () => {
         let temp = ByteTools.deconstructLong(new BigNumber(-30));
         expect(temp.buffer.length).equals(8)
+    });
+
+    it('should deconstruct Big number positive 0-127', () => {
+        for (let i = 0; i < 128; i++) {
+            let temp = ByteTools.deconstructBigNumber(new BigNumber(i));
+            // expect(temp.buffer.length).equals(1)
+            let num = i.toString(16);
+            if (num.length % 2 === 1) {
+                num = '0' + num
+            }
+            expect(temp.toHex().toUpperCase()).equals(num.toUpperCase())
+        }
+    });
+
+    it('should deconstruct Big number positive 65536', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(65535));
+        expect(temp.buffer.length).equals(3)
+        expect(temp.toHex().toUpperCase()).equals('00FFFF')
+    });
+
+    it('should deconstruct Big number negative 1', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(-1));
+        expect(temp.buffer.length).equals(1)
+        expect(temp.toHex().toUpperCase()).equals('FF');
+    });
+
+    it('should deconstruct Big number negative 255', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(-255));
+        expect(temp.buffer.length).equals(2)
+        expect(temp.toHex().toUpperCase()).equals('FF01')
+    });
+
+    it('should deconstruct Big number positive 255', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(255));
+        expect(temp.buffer.length).equals(2)
+        expect(temp.toHex().toUpperCase()).equals('00FF')
+    });
+
+    it('should deconstruct Big number negative 4097', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(-4097));
+        expect(temp.buffer.length).equals(2)
+        expect(temp.toHex().toUpperCase()).equals('EFFF')
+    });
+
+    it('should deconstruct Big number negative 8093', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(-8093));
+        expect(temp.buffer.length).equals(2)
+        expect(temp.toHex().toUpperCase()).equals('E063')
+    });
+
+    it('should deconstruct Big number negative 65536', () => {
+        let temp = ByteTools.deconstructBigNumber(new BigNumber(-65536));
+        expect(temp.buffer.length).equals(3)
+        expect(temp.toHex().toUpperCase()).equals('FF0000')
     });
 });

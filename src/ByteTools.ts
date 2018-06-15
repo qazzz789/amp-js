@@ -99,7 +99,7 @@ export class ByteTools {
 
     public static deconstructLong(_value: BigNumber): ByteBuffer {
         if (_value.lt(new BigNumber(AmpConstants.MAX_LONG, 16)) &&  _value.gt(new BigNumber(AmpConstants.MIN_LONG, 16))) {
-            let ln = ByteTools.deconstructBigNumber(_value);
+            let ln = ByteTools.deconstructBigNumberLong(_value);
             let len = ln.buffer.length;
             let b = ByteBuffer.allocate(8);
             if (len === 8) {
@@ -125,15 +125,37 @@ export class ByteTools {
         return ByteBuffer.fromUTF8(_value)
     }
 
-    // should be compatible with java biginteger
-    // appends a 0 byte if leading nibble is more than 0x7
-    public static deconstructBigNumber(_value: BigNumber): ByteBuffer {
+    private static deconstructBigNumberLong(_value: BigNumber) {
         let num = _value.toString(16);
         if (_value.lt(0)) {
             let power = _value.times(-1).toString(16).length * 4;
             num = (new BigNumber(2)).exponentiatedBy(power).plus(_value).toString(16);
         } else {
             if (parseInt(num[0], 16) > 7) {
+                num = '00' + num;
+            }
+        }
+        if (num.length % 2 === 1) {
+            num = '0' + num
+        }
+        return ByteBuffer.fromHex(num)
+    }
+
+    // should be compatible with java biginteger
+    // appends a 0 byte if leading nibble is more than 0x7
+    public static deconstructBigNumber(_value: BigNumber): ByteBuffer {
+        let num = _value.toString(16);
+        if (num[0] === '-') {
+            let len = (num.length - 1) / 2;
+            if (parseInt(num[1] + num[2], 16) > 127) {
+                len += 1;
+            }
+            num = (new BigNumber(2)).exponentiatedBy(8 * len).plus(_value).toString(16);
+            if (num.length % 2 === 1) {
+                num = 'f' + num
+            }
+        } else {
+            if (parseInt(num[0] + num[1], 16) > 127) {
                 num = '00' + num;
             }
         }
