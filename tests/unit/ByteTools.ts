@@ -82,4 +82,24 @@ describe('ByteTools', () => {
         expect(temp.buffer.length).equals(3)
         expect(temp.toHex().toUpperCase()).equals('FF0000')
     });
+
+    it('should build Big number positive 1', () => {
+        let temp = ByteTools.buildBigNumber(ByteBuffer.fromHex('01'));
+        expect(temp.toString()).equals('1')
+    });
+
+    it('should build Big number positive 65535', () => {
+        let temp = ByteTools.buildBigNumber(ByteBuffer.fromHex('00FFFF'));
+        expect(temp.toString()).equals('65535')
+    });
+
+    it('should build Big number negative 1', () => {
+        let temp = ByteTools.buildBigNumber(ByteBuffer.fromHex('FF'));
+        expect(temp.toString()).equals('-1')
+    });
+
+    it('should build Big number negative 65536', () => {
+        let temp = ByteTools.buildBigNumber(ByteBuffer.fromHex('FF0000'));
+        expect(temp.toString()).equals('-65536')
+    });
 });
