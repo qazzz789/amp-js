@@ -27,6 +27,7 @@ export declare class ByteTools {
     static deconstructLong(_value: BigNumber): ByteBuffer;
     static deconstructDouble(_value: number): ByteBuffer;
     static deconstructString(_value: string): ByteBuffer;
+    private static deconstructBigNumberLong(_value);
     static deconstructBigNumber(_value: BigNumber): ByteBuffer;
     static concatenateShorts(_a: number, _b: number): number;
     static deconcatenateShorts(_value: number): number[];
