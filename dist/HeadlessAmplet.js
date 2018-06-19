@@ -137,7 +137,7 @@ class HeadlessAmplet {
     getNextNBytes(n) {
         let count = this._bytes.size;
         if (n === 0) {
-            return ByteBuffer.allocate(1);
+            return ByteBuffer.allocate(0);
         }
         if (n < 0) {
             return ByteBuffer.allocate(0);

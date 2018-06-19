@@ -166,7 +166,7 @@ export class HeadlessAmplet implements IAmpByteSerializable {
     public getNextNBytes(n: number): ByteBuffer {
         let count = this._bytes.size
         if (n === 0) {
-            return ByteBuffer.allocate(1)
+            return ByteBuffer.allocate(0)
         }
         if (n < 0) {
             return ByteBuffer.allocate(0);
