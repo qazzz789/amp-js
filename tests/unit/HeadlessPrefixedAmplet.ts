@@ -1,12 +1,13 @@
 import { expect } from 'chai';
 import 'mocha';
 import {HeadlessPrefixedAmplet} from "../../src";
+import ByteBuffer = require("bytebuffer");
 
 let hpa: HeadlessPrefixedAmplet;
 describe('HeadlessPrefixedAmplet', () => {
     beforeEach(() => {
         hpa = HeadlessPrefixedAmplet.createFromHeadlessPrefixedAmplet()
-    })
+    });
 
     it('should create element from string', () => {
         let ts = 'com.ampex.amperanet.packets.Ping';
@@ -52,4 +53,13 @@ describe('HeadlessPrefixedAmplet', () => {
         expect(hpa.getNextElement().toUTF8()).equals(tt);
         expect(hpa.hasNextElement()).equals(false);
     });
+
+    it('should deconstruct hex string to elements', () => {
+        const b = ByteBuffer.fromHex('0129636f6d2e616d7065782e616d706572616e65742e7061636b6574732e5554584f446174615374617274010800000000000000000100');
+        hpa = HeadlessPrefixedAmplet.createFromBytes(b);
+        let n = hpa.getNextElement();
+        let crc = hpa.getNextElement();
+        let p = hpa.getNextElement();
+        expect(p.buffer.length).equals(0)
+    })
 });
