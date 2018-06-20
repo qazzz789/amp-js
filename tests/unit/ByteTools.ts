@@ -116,6 +116,6 @@ describe('ByteTools', () => {
     });
 
     it('should construct writeLockClassID 11', () => {
-        expect(ByteTools.writeLockClassID(11)).equals(-2147483627);
+        expect(ByteTools.writeLockClassID(11)).equals(-2147483637);
     });
 });
