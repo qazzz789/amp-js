@@ -1,12 +1,11 @@
-/// <reference types="long" />
-import Long = require("long");
+/// <reference types="node" />
 export declare class AmpConstants {
     static MAJOR_VERSION: number;
     static MINOR_VERSION: number;
     static VERSIONSTRING: string;
     static VERSIONASINTEGER(): number;
-    static AMPLET_CLASS_MARKER: Long;
-    static WRITE_LOCK_MARKER: Long;
+    static AMPLET_CLASS_MARKER: Buffer;
+    static WRITE_LOCK_MARKER: Buffer;
     static BYTE_BYTE_FOOTPRINT: number;
     static BOOLEAN_BYTE_FOOTPRINT: number;
     static SHORT_BYTE_FOOTPRINT: number;

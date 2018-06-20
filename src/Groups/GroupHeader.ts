@@ -133,11 +133,11 @@ export class GroupHeader {
     }
 
     public isWriteLocked(): boolean {
-        return ByteTools.isClassIDWriteLocked(new Long(this.classID));
+        return ByteTools.isClassIDWriteLocked(this.classID);
     }
 
     public isAmpletCompatible(): boolean {
-        return ByteTools.isClassIDAmplified(new Long(this.classID));
+        return ByteTools.isClassIDAmplified(this.classID);
     }
 
     public markForDeletion(): void {

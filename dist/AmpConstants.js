@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ByteTools_1 = require("./ByteTools");
-const Long = require("long");
 class AmpConstants {
     static VERSIONASINTEGER() {
         return ByteTools_1.ByteTools.concatenateShorts(AmpConstants.MAJOR_VERSION, AmpConstants.MINOR_VERSION);
@@ -10,8 +9,8 @@ class AmpConstants {
 AmpConstants.MAJOR_VERSION = 0;
 AmpConstants.MINOR_VERSION = 2;
 AmpConstants.VERSIONSTRING = AmpConstants.MAJOR_VERSION + '.' + AmpConstants.MINOR_VERSION;
-AmpConstants.AMPLET_CLASS_MARKER = new Long(0x40000000);
-AmpConstants.WRITE_LOCK_MARKER = new Long(0x80000000);
+AmpConstants.AMPLET_CLASS_MARKER = Buffer.from('40000000', 'hex');
+AmpConstants.WRITE_LOCK_MARKER = Buffer.from('80000000', 'hex');
 AmpConstants.BYTE_BYTE_FOOTPRINT = 1;
 AmpConstants.BOOLEAN_BYTE_FOOTPRINT = AmpConstants.BYTE_BYTE_FOOTPRINT;
 AmpConstants.SHORT_BYTE_FOOTPRINT = AmpConstants.BYTE_BYTE_FOOTPRINT * 2;

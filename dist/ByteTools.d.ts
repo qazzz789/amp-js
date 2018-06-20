@@ -31,9 +31,9 @@ export declare class ByteTools {
     static deconstructBigNumber(_value: BigNumber): ByteBuffer;
     static concatenateShorts(_a: number, _b: number): number;
     static deconcatenateShorts(_value: number): number[];
-    static writeLockClassID(_classID: Long): Long;
-    static isClassIDWriteLocked(_classID: Long): boolean;
-    static amplifyClassID(_classID: Long): Long;
-    static isClassIDAmplified(_classID: Long): boolean;
+    static writeLockClassID(_classID: number): number;
+    static isClassIDWriteLocked(_classID: number): boolean;
+    static amplifyClassID(_classID: number): number;
+    static isClassIDAmplified(_classID: number): boolean;
     static writeLockGroupID(_groupID: GroupID): GroupID | undefined;
 }

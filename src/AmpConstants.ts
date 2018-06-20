@@ -10,8 +10,8 @@ export class AmpConstants {
         return ByteTools.concatenateShorts(AmpConstants.MAJOR_VERSION, AmpConstants.MINOR_VERSION)
     }
 
-    public static AMPLET_CLASS_MARKER:              Long = new Long(0x40000000);
-    public static WRITE_LOCK_MARKER:                Long = new Long(0x80000000);
+    public static AMPLET_CLASS_MARKER:              Buffer = Buffer.from('40000000', 'hex');
+    public static WRITE_LOCK_MARKER:                Buffer = Buffer.from('80000000', 'hex');
 
     public static BYTE_BYTE_FOOTPRINT:              number = 1
     public static BOOLEAN_BYTE_FOOTPRINT:           number = AmpConstants.BYTE_BYTE_FOOTPRINT;

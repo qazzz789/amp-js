@@ -179,26 +179,26 @@ export class ByteTools {
         ]
     }
 
-    public static writeLockClassID(_classID: Long): Long {
-        return _classID.or(AmpConstants.WRITE_LOCK_MARKER);
+    public static writeLockClassID(_classID: number): number {
+        return _classID | parseInt(AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16);
     }
 
-    public static isClassIDWriteLocked(_classID: Long): boolean {
-        return (_classID.and(AmpConstants.WRITE_LOCK_MARKER)).equals(AmpConstants.WRITE_LOCK_MARKER);
+    public static isClassIDWriteLocked(_classID: number): boolean {
+        return (_classID & parseInt(AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16)) === parseInt(AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16);
     }
 
-    public static amplifyClassID(_classID: Long): Long {
-        return _classID.or(AmpConstants.AMPLET_CLASS_MARKER);
+    public static amplifyClassID(_classID: number): number {
+        return _classID | parseInt(AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
 
-    public static isClassIDAmplified(_classID: Long): boolean {
-        return (_classID.and(AmpConstants.AMPLET_CLASS_MARKER)).equals(AmpConstants.AMPLET_CLASS_MARKER);
+    public static isClassIDAmplified(_classID: number): boolean {
+        return (_classID & parseInt(AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16)) === parseInt(AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
 
     public static writeLockGroupID(_groupID: GroupID): GroupID | undefined {
         if (_groupID != null) {
-            let classID = ByteTools.writeLockClassID(new Long(_groupID.classID));
-            return new GroupID(classID.toInt(), _groupID.classInstanceID, _groupID.name)
+            let classID = ByteTools.writeLockClassID(_groupID.classID);
+            return new GroupID(classID, _groupID.classInstanceID, _groupID.name);
         }
         return undefined;
     }

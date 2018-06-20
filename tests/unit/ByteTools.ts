@@ -102,4 +102,20 @@ describe('ByteTools', () => {
         let temp = ByteTools.buildBigNumber(ByteBuffer.fromHex('FF0000'));
         expect(temp.toString()).equals('-65536')
     });
+
+    it('should construct amplifyClassID 00', () => {
+        expect(ByteTools.amplifyClassID(0)).equals(1073741824);
+    });
+
+    it('should construct amplifyClassID 0B', () => {
+        expect(ByteTools.amplifyClassID(11)).equals(1073741835);
+    });
+
+    it('should construct writeLockClassID 00', () => {
+        expect(ByteTools.writeLockClassID(0)).equals(-2147483648);
+    });
+
+    it('should construct writeLockClassID 11', () => {
+        expect(ByteTools.writeLockClassID(11)).equals(-2147483627);
+    });
 });

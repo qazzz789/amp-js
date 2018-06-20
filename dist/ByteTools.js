@@ -7,7 +7,6 @@ const ByteBuffer = require("bytebuffer");
 const AmpConstants_1 = require("./AmpConstants");
 const Groups_1 = require("./Groups");
 const bignumber_js_1 = __importDefault(require("bignumber.js"));
-const Long = require("long");
 class ByteTools {
     static buildUnsignedByte(_a) {
         return ByteBuffer.allocate(1).writeByte(_a).readUint8(0);
@@ -160,21 +159,21 @@ class ByteTools {
         ];
     }
     static writeLockClassID(_classID) {
-        return _classID.or(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER);
+        return _classID | parseInt(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16);
     }
     static isClassIDWriteLocked(_classID) {
-        return (_classID.and(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER)).equals(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER);
+        return (_classID & parseInt(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16)) === parseInt(AmpConstants_1.AmpConstants.WRITE_LOCK_MARKER.toString('hex'), 16);
     }
     static amplifyClassID(_classID) {
-        return _classID.or(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER);
+        return _classID | parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
     static isClassIDAmplified(_classID) {
-        return (_classID.and(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER)).equals(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER);
+        return (_classID & parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16)) === parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
     static writeLockGroupID(_groupID) {
         if (_groupID != null) {
-            let classID = ByteTools.writeLockClassID(new Long(_groupID.classID));
-            return new Groups_1.GroupID(classID.toInt(), _groupID.classInstanceID, _groupID.name);
+            let classID = ByteTools.writeLockClassID(_groupID.classID);
+            return new Groups_1.GroupID(classID, _groupID.classInstanceID, _groupID.name);
         }
         return undefined;
     }

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ByteTools_1 = require("../ByteTools");
-const Long = require("long");
 const AmpConstants_1 = require("../AmpConstants");
 const Exceptions_1 = require("../Exceptions");
 class GroupHeader {
@@ -103,10 +102,10 @@ class GroupHeader {
         return this._validGroup;
     }
     isWriteLocked() {
-        return ByteTools_1.ByteTools.isClassIDWriteLocked(new Long(this.classID));
+        return ByteTools_1.ByteTools.isClassIDWriteLocked(this.classID);
     }
     isAmpletCompatible() {
-        return ByteTools_1.ByteTools.isClassIDAmplified(new Long(this.classID));
+        return ByteTools_1.ByteTools.isClassIDAmplified(this.classID);
     }
     markForDeletion() {
         this._markedForDeletion = !this.isWriteLocked();
