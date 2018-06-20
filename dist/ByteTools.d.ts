@@ -34,6 +34,7 @@ export declare class ByteTools {
     static writeLockClassID(_classID: number): number;
     static isClassIDWriteLocked(_classID: number): boolean;
     static amplifyClassID(_classID: number): number;
+    static amplifyGroupIDGroup(groupID: GroupID): GroupID | undefined;
     static isClassIDAmplified(_classID: number): boolean;
     static writeLockGroupID(_groupID: GroupID): GroupID | undefined;
 }

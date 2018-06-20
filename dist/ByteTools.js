@@ -167,6 +167,13 @@ class ByteTools {
     static amplifyClassID(_classID) {
         return _classID | parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
+    static amplifyGroupIDGroup(groupID) {
+        if (groupID) {
+            let classID = this.amplifyClassID(groupID.classID);
+            return new Groups_1.GroupID(classID, groupID.classInstanceID, groupID.name, undefined, true);
+        }
+        return undefined;
+    }
     static isClassIDAmplified(_classID) {
         return (_classID & parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16)) === parseInt(AmpConstants_1.AmpConstants.AMPLET_CLASS_MARKER.toString('hex'), 16);
     }
